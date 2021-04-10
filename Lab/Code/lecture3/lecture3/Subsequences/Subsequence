@@ -1,0 +1,6 @@
+public
+
+    public static String subseq(String word) {
+    // call the recursive helper method
+    return subseqHelper("", word);
+    }
