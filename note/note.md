@@ -20,6 +20,8 @@ Three kinds of automatic checking that a language can provide:
 2. ***Dynamic checking***: the bug is found automatically when the code is executed.
 3. ***No checking***: the language doesn't help you find the error at all. You have to watch for it yourself, or end up with wrong answers!
 
+dynamic checking will throw exception, but no checking only result error.
+
 ### Static Checking
 Static checking can catch:
 ● syntax errors, like extra punctuation or spurious words
@@ -60,6 +62,10 @@ mutable type: has methods that change the value of the object, e.g. StringBuilde
 ### mutable reference and immutable reference
 mutable reference: variables that can point to other value, e.g. String a = "sd", a = "a";
 immutable reference: variables cannot point to other value, e.g. variables declare with the keyword "final"
+
+if a final variable points to a mutable object, then the variable cannot be reassigned, but the object it points to can still be mutated, e.g. final List a = {1, 2}, a = {2, 3};
+
+
 
 ## Interface
 interfaces: define how these respective types work, but don’t provide implementation code.
