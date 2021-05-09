@@ -4,7 +4,7 @@
 // to be implemented by ARDeque
 
 public ... {
-	
-	
-	
+
+
+
 }
