@@ -70,3 +70,13 @@ if a final variable points to a mutable object, then the variable cannot be reas
 ## Interface
 interfaces: define how these respective types work, but don’t provide implementation code.
 
+
+
+## Testing
+
+### regression testing
+Rerun tests when you modify your code.
+A regression test case comes from the discovery of a bug, which means when you find and fix a bug, you should take the input that elicited the bug and add it to your automated test suite as a test case.
+
+### automated regression testing
+automated regression testing is a best practice of modern software engineering.
