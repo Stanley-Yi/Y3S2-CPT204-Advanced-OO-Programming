@@ -93,8 +93,6 @@ A specification of a method consists of two clauses:
 ○ a ***postcondition***, indicated by the keyword effects
 
 
-
-
 ● The overall structure is a logical implication:
 if the precondition holds when the method is called, then the postcondition must hold when the method completes
 
@@ -103,3 +101,14 @@ called, the implementation is not bound by the
 postcondition
 	○ It is free to do anything , including not terminating, throwing an exception, returning arbitrary results, making arbitrary modifications, etc
 
+## invariant
+An invariant is a condition that is guaranteed to be true during code execution.
+
+For example, SLList with Sentinel Node has the following invariants:
+○ sentinel instance variable always points to a sentinel node
+○ the first node, if it exists, is always at sentinel.next
+○ size instance variable is always the total number of items added
+
+Invariants make it easier to reason about code:
+○ can assume they are true to simplify code, e.g., addLast does not need to worry about the null case
+○ must ensure that the methods preserve invariants
