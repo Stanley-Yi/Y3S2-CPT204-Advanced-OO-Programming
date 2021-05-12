@@ -80,3 +80,26 @@ A regression test case comes from the discovery of a bug, which means when you f
 
 ### automated regression testing
 automated regression testing is a best practice of modern software engineering.
+
+### unit testing
+unit testing,  the idea that we should write tests of each module of our program in isolation.
+A good unit test is focused on just a single specification.
+
+
+## Specification
+### Specification Structure
+A specification of a method consists of two clauses:
+○ a ***precondition***, indicated by the keyword requires
+○ a ***postcondition***, indicated by the keyword effects
+
+
+
+
+● The overall structure is a logical implication:
+if the precondition holds when the method is called, then the postcondition must hold when the method completes
+
+● If the precondition does not hold when the method is
+called, the implementation is not bound by the
+postcondition
+	○ It is free to do anything , including not terminating, throwing an exception, returning arbitrary results, making arbitrary modifications, etc
+
