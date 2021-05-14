@@ -112,3 +112,15 @@ For example, SLList with Sentinel Node has the following invariants:
 Invariants make it easier to reason about code:
 ○ can assume they are true to simplify code, e.g., addLast does not need to worry about the null case
 ○ must ensure that the methods preserve invariants
+
+
+## Exception
+
+### Checked and Unchecked Exceptions
+checked exceptions to signal special results.
+unchecked exceptions to signal bugs.
+
+![Java Expection Hierarchy](D:\Files\Learning Materials\Y3\Semester-2\CPT204\note\Java Expection Hierarchy.png)
+
+![checked](D:\Files\Learning Materials\Y3\Semester-2\CPT204\note\checked.png)
+
