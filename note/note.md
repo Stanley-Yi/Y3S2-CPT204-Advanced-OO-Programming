@@ -101,6 +101,31 @@ called, the implementation is not bound by the
 postcondition
 	○ It is free to do anything , including not terminating, throwing an exception, returning arbitrary results, making arbitrary modifications, etc
 
+### Three Dimensions for Comparing Specs
+deterministic: it is: does the spec define only a ***single possible output*** (deterministic) for a given input, or does it allow the implementor to choose from a ***set of legal outputs*** (underdetermined)
+declarative: it is: does the spec just ***characterize what the output should be*** (Declarative), or does it 
+***explicitly say how to compute the output*** (Operational)
+strong: it is: does the spec have a ***small set of legal implementations***, or a ***large set***
+
+
+
+A specification S2 is stronger than or equal to a specification S1 if
+○ S2's precondition is weaker than or equal to S1's, and
+○ S2's postcondition is stronger than or equal to S1's for the states that satisfy S1's precondition
+
+otherwise, they are incomparable.
+
+if S2 stronger than S1:
+
+![S2 stronger than S1](D:\Files\Learning Materials\Y3\Semester-2\CPT204\note\S2 stronger than S1.png)
+
+If this is the case, then an implementation that satisfies S2 can be used to satisfy S1 as well, and it's safe to replace S1 with S2 in your program.
+
+These two rules embody several ideas: they tell you that you can always weaken the precondition ; placing fewer demands on a client will never upset them; and you can always strengthen the postcondition , which means making more promises.
+
+
+
+
 ## invariant
 An invariant is a condition that is guaranteed to be true during code execution.
 
@@ -123,4 +148,8 @@ unchecked exceptions to signal bugs.
 ![Java Expection Hierarchy](D:\Files\Learning Materials\Y3\Semester-2\CPT204\note\Java Expection Hierarchy.png)
 
 ![checked](D:\Files\Learning Materials\Y3\Semester-2\CPT204\note\checked.png)
+
+![throw](D:\Files\Learning Materials\Y3\Semester-2\CPT204\note\throw.png)
+
+![Exception](D:\Files\Learning Materials\Y3\Semester-2\CPT204\note\Exception.png)
 
