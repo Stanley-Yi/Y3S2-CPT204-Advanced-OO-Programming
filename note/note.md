@@ -153,3 +153,26 @@ unchecked exceptions to signal bugs.
 
 ![Exception](D:\Files\Learning Materials\Y3\Semester-2\CPT204\note\Exception.png)
 
+
+## Assertions
+### defensive programming
+Defensive programming offers a way to mitigate the effects of bugs even if you don't know where they are.
+example: Checking preconditions
+
+### assert
+Note that the Java assert statement is a different mechanism than the JUnit methods assertTrue()assertTrue(), assertEquals()assertEquals(), etc.
+They all assert a predicate about your code, but are designed for use in different contexts.
+The assert statement should be used in implementation code for defensive checks inside the implementation.
+JUnit assert...() methods should be used in JUnit tests to check the result of a test.
+
+## Modularity
+***Modularity*** means dividing up a system into components, or modules, each of which can be designed, implemented, tested, reasoned about, and reused separately from the rest of the system.
+
+The opposite of a modular system is a ***monolithic*** system - big and with all of its pieces tangled up and dependent on each other.
+
+***Encapsulation*** means building walls around a module (a hard shell or capsule) so that the module is responsible for its own internal behavior and bugs in other parts of the system can't damage its integrity.
+
+One kind of encapsulation is ***access control*** : using public and private to control the visibility and accessibility of your variables and methods.
+
+Another kind of encapsulation comes from ***variable scope***
+
