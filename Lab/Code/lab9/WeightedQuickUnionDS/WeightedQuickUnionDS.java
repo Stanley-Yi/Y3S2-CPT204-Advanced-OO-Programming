@@ -50,8 +50,10 @@ public class WeightedQuickUnionDS {
      * @param N the number of elements
      */
     public WeightedQuickUnionDS(int N) {
-        
-		
+        parent = new int[N];
+        for (int i = 0; i < N; i ++) {
+            parent[i] = -1;
+        }
 		
     }
 
@@ -63,9 +65,9 @@ public class WeightedQuickUnionDS {
      * @throws IllegalArgumentException if p is not a valid index.
      */
     public void validate(int p) {
-        
-		
-		
+        if (p >= parent.length || p < 0) {
+            throw new IllegalArgumentException();
+        }
     }
 
 
@@ -77,9 +79,11 @@ public class WeightedQuickUnionDS {
      * @return the size of the set containing p
      */
     public int sizeOf(int p) {
-        
-		
-		return 0;
+        int num = p;
+        while (parent[num] >= 0) {
+            num = parent[num];
+        }
+        return Math.abs(parent[num]);
     }
 
 
@@ -95,9 +99,22 @@ public class WeightedQuickUnionDS {
      * @throws IllegalArgumentException if p or q is not a valid index.
      */
     public boolean isConnected(int p, int q) {
-        
-		
-		return false;
+        if (p >= parent.length || p < 0 || q >= parent.length || q < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        int qNum = q;
+        int pNum = p;
+
+        while (parent[pNum] >= 0) {
+            pNum = parent[pNum];
+        }
+
+        while (parent[qNum] >= 0) {
+            qNum = parent[qNum];
+        }
+
+        return pNum == qNum;
     }
 
 
@@ -111,8 +128,42 @@ public class WeightedQuickUnionDS {
      * @throws IllegalArgumentException if p or q is not a valid index.
      */
     public void connect(int p, int q) {
-        
-		
+        if (p >= parent.length || p < 0 || q >= parent.length || q < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        if (!isConnected(p, q)) {
+            if (sizeOf(p) <= sizeOf(q)) {
+                // connecting p's root to q's root
+                int pNum = p;
+                int qNum = q;
+
+                while (parent[pNum] >= 0) {
+                    pNum = parent[pNum];
+                }
+
+                while (parent[qNum] >= 0) {
+                    qNum = parent[qNum];
+                }
+
+                parent[qNum] -= sizeOf(p);
+                parent[pNum] = qNum;
+            } else {
+                int pNum = p;
+                int qNum = q;
+
+                while (parent[pNum] >= 0) {
+                    pNum = parent[pNum];
+                }
+
+                while (parent[qNum] >= 0) {
+                    qNum = parent[qNum];
+                }
+
+                parent[pNum] -= sizeOf(q);
+                parent[qNum] = pNum;
+            }
+        }
 		
     }
 
@@ -123,6 +174,7 @@ public class WeightedQuickUnionDS {
         ds.connect(3, 2);
         ds.connect(3, 1);
         ds.printParent();
+        System.out.println(ds.sizeOf(0));
     }
 
 }

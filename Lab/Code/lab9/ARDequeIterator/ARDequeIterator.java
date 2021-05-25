@@ -1,3 +1,6 @@
+import javax.swing.text.html.HTMLDocument;
+import java.util.Iterator;
+
 public class ARDequeIterator<T> {
 
     private final ARDeque<T> deque;
@@ -17,9 +20,9 @@ public class ARDequeIterator<T> {
      * Make an iterator.
      * @param deque deque to iterate over
      */
-    public ARDequeIterator( . . . ) {
-		
-		
+    public ARDequeIterator(ARDeque<T> deque) {
+		this.deque = deque;
+		this.index = 0;
 		
     }
 
@@ -28,10 +31,8 @@ public class ARDequeIterator<T> {
      * @return true if next() will return another item,
      *         false if all items have been returned
      */
-    public . . .  hasNext() {
-		
-		
-		
+    public boolean hasNext() {
+        return index < deque.size();
     }
 
 
@@ -44,10 +45,10 @@ public class ARDequeIterator<T> {
      *           following the returned item.
      * @return next item of the deque
      */
-    public . . . next() {
-		
-		
-		
+    public T next() {
+		T result = deque.get(index);
+		index ++;
+		return result;
     }
 
 

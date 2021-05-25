@@ -21,7 +21,7 @@ public class WeightedQuickUnionDSTest {
     @Test(expected = IllegalArgumentException.class)
     public void validateTest_1() {
         WeightedQuickUnionDS ds = new WeightedQuickUnionDS(5);
-        ds.validate(10);
+        ds.validate(5);
     }
 	
 	
