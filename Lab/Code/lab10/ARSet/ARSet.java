@@ -33,16 +33,33 @@ public class ARSet<T> implements Iterable<T> {
      * Make an iterator
      */
     @Override
-    public ... iterator() {
-		
-		
-		
+    public Iterator<T> iterator() {
+
+		return new ARSetIterator();
+
     }
 
-    private class ARSetIterator ... {
-		
-		
-		
+    private class ARSetIterator implements Iterator<T> {
+
+        private int index;
+
+        public ARSetIterator() {
+            this.index = 0;
+        }
+
+
+        @Override
+        public boolean hasNext() {
+            return index < size;
+        }
+
+        @Override
+        public T next() {
+            T result = items[index];
+            index ++;
+
+            return result;
+        }
     }
 
 
@@ -54,8 +71,16 @@ public class ARSet<T> implements Iterable<T> {
      * @return true iff the set contains the item
      */
     public boolean contains(T item) {
-		
-		
+        if (item == null) {
+            throw new IllegalArgumentException();
+        }
+
+		for (int i = 0; i < this.size; i++) {
+		    if (item == this.items[i]) {
+		        return true;
+            }
+        }
+
 		return false;
     }
 
@@ -68,8 +93,14 @@ public class ARSet<T> implements Iterable<T> {
      * @throws IllegalArgumentException if item is null.
      */
     public void add(T item) {
-		
-		
+		if (item == null) {
+		    throw new IllegalArgumentException();
+        }
+
+		if (size < 100 && ! this.contains(item)) {
+		    items[size] = item;
+		    size ++;
+        }
 		
     }
 
