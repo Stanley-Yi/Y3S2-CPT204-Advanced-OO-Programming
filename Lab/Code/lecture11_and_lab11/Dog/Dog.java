@@ -43,9 +43,12 @@ public class Dog implements Comparable<Dog> {
     // LAB EXERCISE 11.2  EQUALS
 
     @Override
-    public ... equals( ... ) {
-		
-		
+    public boolean equals(Object other) {
+		if (! (other instanceof Dog)) return false;
+		if (this.weight == ((Dog) other).weight) {
+            return this.name.equals(((Dog) other).name);
+        }
+		return false;
 		
     }
 

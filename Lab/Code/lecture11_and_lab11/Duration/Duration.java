@@ -37,9 +37,9 @@ public class Duration implements Comparable<Duration> {
     // LAB EXERCISE 11.1  COMPARETO
 
     @Override
-    public ... compareTo( ... ) {
-		
-		
+    public int compareTo(Duration other) {
+
+		return this.getLength() - other.getLength();
 		
     }
 

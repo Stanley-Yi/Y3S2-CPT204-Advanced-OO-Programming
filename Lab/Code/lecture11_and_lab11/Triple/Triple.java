@@ -27,9 +27,16 @@ public class Triple<T extends Comparable<T>, S extends Comparable<S>, U extends 
 
     @Override
     public int compareTo(Triple<T, S, U> other) {
-		
-		
-		
+        int cmp1, cmp2;
+        cmp1 = first.compareTo(other.first);
+        if (cmp1 == 0) {
+            cmp2 = second.compareTo(other.second);
+            if (cmp2 == 0) {
+                return third.compareTo(other.third);
+            }
+            return cmp2;
+        }
+        return cmp1;
     }
 
 }
