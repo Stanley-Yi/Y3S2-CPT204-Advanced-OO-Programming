@@ -1,3 +1,5 @@
+import org.w3c.dom.Node;
+
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -31,7 +33,30 @@ public class ALBinHeap<T> implements ExpMinPQ<T> {
     // INCLUDE ALL YOUR HELPER METHODS
     // IN YOUR LEARNING MALL SUBMISSION !
 
+    @SuppressWarnings("unchecked")
+    private void swap(int i, int j) {
+        Node temp = heap.get(i);
+        heap.set(i, heap.get(j));
+        heap.set(j, temp);
+    }
 
+    private void swim(int k) {
+        if (k / 2 == 0) return;
+        while (k != 1 && heap.get(k / 2).priority > heap.get(k).priority) {
+            swap(k, k / 2);
+            k = k / 2;
+        }
+    }
+
+    private void sink(int k) {
+        while (2*k <= size) {
+            int j = 2*k;
+            if (j < size && heap.get(j).priority > heap.get(j + 1).priority) j++;
+            if (!(heap.get(k).priority > heap.get(j).priority)) break;
+            swap(k, j);
+            k = j;
+        }
+    }
 
     /*
      ******************
@@ -46,9 +71,9 @@ public class ALBinHeap<T> implements ExpMinPQ<T> {
      * Initializes an empty binary heap.
      */
     public ALBinHeap() {
-
-
-
+        heap = new ArrayList<Node>();
+        heap.add(null);
+        size = 0;
     }
 	
 	
@@ -61,9 +86,9 @@ public class ALBinHeap<T> implements ExpMinPQ<T> {
      */
     @Override
     public T getMin() {
+        if (this == null || this.isEmpty()) throw new NoSuchElementException();
 
-
-        return null;
+        return heap.get(1).item;
     }
 
 
@@ -77,9 +102,15 @@ public class ALBinHeap<T> implements ExpMinPQ<T> {
      */
     @Override
     public void add(T item, int priority) {
+        if (item == null) throw new IllegalArgumentException();
 
+        // add function
+        Node element = new Node(item, priority);
+        size ++;
+        heap.add(element);
 
-
+        // deal unbalance
+        swim(size);
     }
 
 
@@ -92,9 +123,15 @@ public class ALBinHeap<T> implements ExpMinPQ<T> {
      */
     @Override
     public T delMin() {
+        if (this == null || this.isEmpty()) throw new NoSuchElementException();
 
+        T delMin = heap.get(1).item;
+        heap.set(1, heap.get(size));
+        size --;
 
-        return null;
+        sink(1);
+
+        return delMin;
     }
 	
 
