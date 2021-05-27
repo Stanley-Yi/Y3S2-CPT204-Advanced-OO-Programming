@@ -64,17 +64,20 @@ public class HASet<T> {
 
     // LAB EXERCISE 12.1 COMPARATOR
 
-    private class SizeComparator ... {
-		
-		
-		
+    private class SizeComparator implements Comparator<HASet<T>> {
+
+
+        @Override
+        public int compare(HASet<T> o1, HASet<T> o2) {
+            return o1.size - o2.size;
+        }
     }
 
     /** Comparator of set based on size */
-    public ... getSizeComparator() {
-		
-		
-		
+    public SizeComparator getSizeComparator() {
+
+        return new SizeComparator();
+
     }
 
 }

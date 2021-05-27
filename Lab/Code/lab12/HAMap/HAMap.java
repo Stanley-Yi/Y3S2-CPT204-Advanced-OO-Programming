@@ -61,12 +61,12 @@ public class HAMap<K, V> implements Iterable<K> {
      ***** HELPER METHODS START *****
      */
 
-    
-	// INCLUDE your helper methods in EACH of your submissions that use them
-	
-	
-	
-	
+
+    // INCLUDE your helper methods in EACH of your submissions that use them
+
+
+
+
 
     /*
      ***** HELPER METHODS END *****
@@ -76,22 +76,30 @@ public class HAMap<K, V> implements Iterable<K> {
     // LAB EXERCISE 12.2 CONSTRUCTORS
 
     public HAMap(int initialCapacity, double loadFactor) {
-		
-		
-		
+        buckets = new ArrayList<>();
+        for (int i = 0; i < initialCapacity; i++) {
+            buckets.add(new ArrayList<>());
+        }
+        keySet = new HashSet<>();
+        numBuckets = initialCapacity;
+        numEntries = 0;
+        this.loadFactor = loadFactor;
     }
 
+
+
     public HAMap() {
-		
-		
-		
+
+        this(DEFAULT_CAPACITY, DEFAULT_LOAD_FACTOR);
+
     }
 
     public HAMap(int initialCapacity) {
-		
-		
-		
+
+        this(initialCapacity, DEFAULT_LOAD_FACTOR);
+
     }
+
 
 
     // LAB EXERCISE 12.3 CLEAR
@@ -100,9 +108,12 @@ public class HAMap<K, V> implements Iterable<K> {
      * Removes all of the entries from this map.
      */
     public void clear() {
-		
-		
-		
+        buckets = new ArrayList<>();
+        for (int i = 0; i < numBuckets; i++) {
+            buckets.add(new ArrayList<>());
+        }
+        keySet = new HashSet<>();
+        numEntries = 0;
     }
 
 
@@ -115,7 +126,7 @@ public class HAMap<K, V> implements Iterable<K> {
     public boolean containsKey(K key) {
 		
 		
-		return false;
+		return keySet.contains(key);
     }
 
     /**
@@ -123,9 +134,8 @@ public class HAMap<K, V> implements Iterable<K> {
      */
     @Override
     public Iterator<K> iterator() {
-		
-		
-		return null;
+
+        return keySet.iterator();
     }
 
 
@@ -136,10 +146,23 @@ public class HAMap<K, V> implements Iterable<K> {
      * @return the value to which the specified key is mapped
      *         null if this map contains no entries of the key
      */
+    private int reduce(K key,int capacity ){
+        return Math.floorMod(key.hashCode(),capacity);
+    }
+
+
     public V get(K key) {
-		
-		
-		return null;
+
+        if (containsKey(key)){
+            int reduce = reduce(key,buckets.size());
+            ArrayList<Entry> items = buckets.get(reduce);
+            for(Entry a : items){
+                if(a.key == key)
+                    return a.value;
+            }
+
+        }
+        return null;
     }
 
 
@@ -152,13 +175,44 @@ public class HAMap<K, V> implements Iterable<K> {
      * @param key of the entry to be added
      * @param value of the entry to be added
      */
-    public void put(K key, V value) {
-		
-		
-		
+    private void resize(int newCapacity){
+        ArrayList<ArrayList<Entry>> newBuckets = new ArrayList<>();
+        for (int i = 0; i < newCapacity; i++) {
+            newBuckets.add(new ArrayList<>());
+        }
+
+        for(K key:this){
+            int newIndex=reduce(key,newCapacity);
+            newBuckets.get(newIndex).add(new Entry(key,get(key)));
+
+        }
+
+        buckets=newBuckets;
+        numBuckets=newCapacity;
+
     }
-	
-	
+
+    public void put(K key, V value) {
+        if((double)numEntries / (double)numBuckets >= loadFactor){
+            resize(2 * numBuckets);
+        }
+
+        assert (key != null);
+        int index = reduce(key,buckets.size());
+        ArrayList<Entry> items = buckets.get(index);
+        for(Entry e :items){
+            if(e.key.equals(key)){
+                e.value = value;
+                return;
+            }
+        }
+        items.add(new Entry(key,value));
+        keySet.add(key);
+        numEntries++;
+    }
+
+
+
     // EXERCISE 12.3 REMOVE
 
     /**
@@ -170,9 +224,22 @@ public class HAMap<K, V> implements Iterable<K> {
      *         null otherwise
      */
     public V remove(K key, V value) {
-		
-		
-		return null;
+        if (key == null || !keySet.contains(key))
+            return null;
+        int index = reduce(key, buckets.size());
+        ArrayList<Entry> items = buckets.get(index);
+        for (Entry e : items) {
+            if (e.key.equals(key)) {
+                if (e.value.equals(value)) {
+
+                    items.remove(e);
+                    keySet.remove(key);
+                    numEntries--;
+                    return e.value;
+                }
+            }
+        }
+        return null;
     }
 
 }
