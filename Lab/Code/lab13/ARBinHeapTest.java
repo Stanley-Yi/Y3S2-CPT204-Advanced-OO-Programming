@@ -31,7 +31,7 @@ public class ARBinHeapTest {
             System.out.print(arr[i] + " ");
         }
         System.out.println();
-        // HeapVisualizer.heapVisualize(pq.toArray());
+         HeapVisualizer.heapVisualize(pq.toArray());
     }
 	
 	// add your own test cases below
