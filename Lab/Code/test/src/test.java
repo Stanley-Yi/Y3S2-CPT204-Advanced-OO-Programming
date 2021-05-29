@@ -18,8 +18,7 @@ public class test {
     }
 
     public static void main(String[] args) {
-        List<Integer> myData = Arrays.asList(-5, -2, -10);
-        System.out.println(sumOfAbsoluteValues(myData));
-        System.out.println(sum(myData));
+        int a = 5 / 2;
+        System.out.println(a);
     }
 }

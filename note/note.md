@@ -49,10 +49,22 @@ so in this expression, divide-by-zero is not a static error, but a dynamic error
 
 ## Javadoc Comments and Documenting Assumptions
 
+method signature: public static List<Integer> hailstone(int n) , the parameters' types and return type.
+
 ![Javadoc Comments](D:\Files\Learning Materials\Y3\Semester-2\CPT204\note\Javadoc Comments.png)
 
 ## Snapshot diagrams
 Snapshot diagrams represent the internal state of a program at runtime – its stack (methods in progress and their local variables) and its heap (objects that currently exist)
+
+![primitive Values](D:\Files\Learning Materials\Y3\Semester-2\CPT204\note\primitive Values.png)
+
+![object values](D:\Files\Learning Materials\Y3\Semester-2\CPT204\note\object values.png)
+
+![mutable value](D:\Files\Learning Materials\Y3\Semester-2\CPT204\note\mutable value.png)
+
+![immutable value](D:\Files\Learning Materials\Y3\Semester-2\CPT204\note\immutable value.png)
+
+![immutable references](D:\Files\Learning Materials\Y3\Semester-2\CPT204\note\immutable references.png)
 
 ## mutable and immutable
 ### mutable value and immutable value
@@ -66,6 +78,18 @@ immutable reference: variables cannot point to other value, e.g. variables decla
 if a final variable points to a mutable object, then the variable cannot be reassigned, but the object it points to can still be mutated, e.g. final List a = {1, 2}, a = {2, 3};
 
 
+## Final
+
+final can be used on both **parameters** and **local variables**
+
+if a final variable points to a mutable object, then the variable cannot be reassigned , but the object it points to can still be mutated.
+
+## Map
+
+A map stores key/value pairs , where each key has an associated value.
+
+
+
 
 ## Interface
 interfaces: define how these respective types work, but don’t provide implementation code.
@@ -73,6 +97,14 @@ interfaces: define how these respective types work, but don’t provide implemen
 
 
 ## Testing
+
+### Test Driven Development and Corner Cases
+
+In Test Driven Development (TDD), you start by writing the test code first even before writing the implementation code.
+
+Always create test cases for the corner cases
+○ For example: empty list, singleton list (list with just one element), smallest list with answer equals zero/non zero or false/true.
+
 
 ### regression testing
 Rerun tests when you modify your code.

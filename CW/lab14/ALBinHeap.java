@@ -1,5 +1,3 @@
-import org.w3c.dom.Node;
-
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -32,28 +30,34 @@ public class ALBinHeap<T> implements ExpMinPQ<T> {
 
     // INCLUDE ALL YOUR HELPER METHODS
     // IN YOUR LEARNING MALL SUBMISSION !
-
-    @SuppressWarnings("unchecked")
-    private void swap(int i, int j) {
-        Node temp = heap.get(i);
-        heap.set(i, heap.get(j));
-        heap.set(j, temp);
+    public boolean greater(int i,int j){
+        return heap.get(i).priority>heap.get(j).priority;
     }
 
-    private void swim(int k) {
-        if (k / 2 == 0) return;
-        while (k != 1 && heap.get(k / 2).priority > heap.get(k).priority) {
-            swap(k, k / 2);
-            k = k / 2;
+    public void swap(int i, int j){
+        Node iNode = new Node(heap.get(i).item,heap.get(i).priority);
+        Node jNode = new Node(heap.get(j).item,heap.get(j).priority);
+        heap.set(i,jNode);
+        heap.set(j,iNode);
+    }
+
+    public void swim(int k){
+        while(k>1&&greater(k/2,k)){
+            swap(k,k/2);
+            k=k/2;
         }
     }
 
-    private void sink(int k) {
-        while (2*k <= size) {
+    public void sink(int k){
+        while(k*2<=size){
             int j = 2*k;
-            if (j < size && heap.get(j).priority > heap.get(j + 1).priority) j++;
-            if (!(heap.get(k).priority > heap.get(j).priority)) break;
-            swap(k, j);
+            if(j<size&&greater(j,j+1)){
+                j++;
+            }
+            if(!greater(k,j)){
+                break;
+            }
+            swap(k,j);
             k = j;
         }
     }
@@ -73,11 +77,11 @@ public class ALBinHeap<T> implements ExpMinPQ<T> {
     public ALBinHeap() {
         heap = new ArrayList<Node>();
         heap.add(null);
-        size = 0;
+        size=0;
     }
-	
-	
-	// LAB 14 PART A.2 GETMIN
+
+
+    // LAB 14 PART A.2 GETMIN
 
     /**
      * Returns an item with a smallest priority on this binary heap.
@@ -86,8 +90,8 @@ public class ALBinHeap<T> implements ExpMinPQ<T> {
      */
     @Override
     public T getMin() {
-        if (this == null || this.isEmpty()) throw new NoSuchElementException();
-
+        if(size==0)
+            throw new NoSuchElementException();
         return heap.get(1).item;
     }
 
@@ -102,15 +106,12 @@ public class ALBinHeap<T> implements ExpMinPQ<T> {
      */
     @Override
     public void add(T item, int priority) {
-        if (item == null) throw new IllegalArgumentException();
-
-        // add function
-        Node element = new Node(item, priority);
-        size ++;
-        heap.add(element);
-
-        // deal unbalance
+        if(item==null)
+            throw new IllegalArgumentException();
+        heap.add(new Node(item,priority));
+        size++;
         swim(size);
+
     }
 
 
@@ -123,22 +124,21 @@ public class ALBinHeap<T> implements ExpMinPQ<T> {
      */
     @Override
     public T delMin() {
-        if (this == null || this.isEmpty()) throw new NoSuchElementException();
-
-        T delMin = heap.get(1).item;
-        heap.set(1, heap.get(size));
-        size --;
-
+        if(size==0){
+            throw new NoSuchElementException();
+        }
+        T temp = getMin();
+        heap.set(1,new Node(heap.get(size).item,heap.get(size).priority));
+        heap.remove(size--);
         sink(1);
-
-        return delMin;
+        return temp;
     }
-	
+
 
     // DO NOT MODIFY CODE BELOW
     // for testing and visualization
-	
-	/**
+
+    /**
      * Returns true if this binary heap is empty.
      * @return true if this binary heap is empty;
      *         false otherwise
@@ -156,7 +156,7 @@ public class ALBinHeap<T> implements ExpMinPQ<T> {
     public int size() {
         return size;
     }
-		
+
     @SuppressWarnings("unchecked")
     public T[] toArray() {
         T[] result = (T[]) new Object[size() + 1];
