@@ -138,4 +138,15 @@ public class MaxAttendanceTest {
 //        assertEquals(21, maxAtt.maxAttendance());
         maxAtt.maxAttendance();
     }
+
+    @Test
+    public void testCase12() {
+        int[] days = {1, 2, 1};
+        int[] startTimes = {9, 9, 9};
+        int[] endTimes = {10, 10, 10};
+        int[] studentNumbers = {1, 2, 3};
+        MaxAttendance maxAtt = new MaxAttendance(createSchedule(days, startTimes, endTimes, studentNumbers));
+        assertEquals(4, maxAtt.maxAttendance());
+        maxAtt.maxAttendance();
+    }
 }
