@@ -92,3 +92,6 @@ A map stores key/value pairs , where each key has an associated value.
 ## Interface
 interfaces: define how these respective types work, but don’t provide implementation code.
 
+
+
+![W2-quiz](D:\Files\Learning Materials\Y3\Semester-2\CPT204\note\W2-quiz.png)
