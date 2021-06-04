@@ -18,23 +18,23 @@ public class MaxAttendance {
 
     }
     public int maxAttendance() {
-        int current = 0;
-        int max = 0;
+        int currentitem = 0;
+        int maxNum = 0;
         while(!minPQ1.isEmpty()){
             if((minPQ1.getMin().getDay() * 100 + minPQ1.getMin().getStartTime()) < (minPQ2.getMin().getDay() * 100 + minPQ2.getMin().getEndTime())){
-                current = current + minPQ1.getMin().getNumStudents();
+                currentitem = currentitem + minPQ1.getMin().getNumStudents();
                 minPQ1.delMin();
             }
             else{
-                current = current - minPQ2.getMin().getNumStudents();
+                currentitem = currentitem - minPQ2.getMin().getNumStudents();
                 minPQ2.delMin();
             }
-            if(max < current){
-                max = current;
+            if(maxNum < currentitem){
+                maxNum = currentitem;
             }
 
         }
-        return max;
+        return maxNum;
     }
 
 }

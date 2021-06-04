@@ -32,8 +32,15 @@ public class WeightedQuickUnionDS {
 
     // Add your own helper methods here
 	// INCLUDE your helper methods in your submission !
-	
-	
+
+    private int find(int p) {
+        validate(p);
+        int root = p;
+        while (parent(root) > -1) {
+            root = parent(root);
+        }
+        return root;
+    }
 	
 
     /*
@@ -50,9 +57,10 @@ public class WeightedQuickUnionDS {
      * @param N the number of elements
      */
     public WeightedQuickUnionDS(int N) {
-        
-		
-		
+        parent = new int[N];
+        for (int i = 0; i < N; i++) {
+            parent[i] = -1;
+        }
     }
 
 
@@ -63,9 +71,7 @@ public class WeightedQuickUnionDS {
      * @throws IllegalArgumentException if p is not a valid index.
      */
     public void validate(int p) {
-        
-		
-		
+        if (p < 0 || p >= parent.length) throw new IllegalArgumentException();
     }
 
 
@@ -77,9 +83,11 @@ public class WeightedQuickUnionDS {
      * @return the size of the set containing p
      */
     public int sizeOf(int p) {
-        
-		
-		return 0;
+        validate(p);
+        while (parent[p] > -1) {
+            p = parent[p];
+        }
+        return Math.abs(parent[p]);
     }
 
 
@@ -95,9 +103,17 @@ public class WeightedQuickUnionDS {
      * @throws IllegalArgumentException if p or q is not a valid index.
      */
     public boolean isConnected(int p, int q) {
-        
-		
-		return false;
+        validate(p);
+        validate(q);
+
+        while (parent[p] > -1) {
+            p = parent[p];
+        }
+
+        while (parent[q] > -1) {
+            q = parent[q];
+        }
+		return p == q;
     }
 
 
@@ -111,9 +127,15 @@ public class WeightedQuickUnionDS {
      * @throws IllegalArgumentException if p or q is not a valid index.
      */
     public void connect(int p, int q) {
-        
-		
-		
+        if (!isConnected(p, q)) {
+            if (sizeOf(p) > sizeOf(q)) {
+                parent[find(p)] -= sizeOf(q);
+                parent[find(q)] = find(p);
+            } else {
+                parent[find(q)] -= sizeOf(p);
+                parent[find(p)] = find(q);
+            }
+        }
     }
 
 
