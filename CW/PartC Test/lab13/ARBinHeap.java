@@ -29,8 +29,8 @@ public class ARBinHeap<T extends Comparable<T>> implements MinPQ<T> {
      */
     @SuppressWarnings("unchecked")
     public ARBinHeap(int initCapacity) {
-		
-		
+		heap = (T[]) new Comparable[initCapacity+1];
+		size = 0;
 		
     }
 
@@ -39,7 +39,7 @@ public class ARBinHeap<T extends Comparable<T>> implements MinPQ<T> {
      * Initializes an empty binary heap.
      */
     public ARBinHeap() {
-		
+		this(1);
 		
 		
     }
@@ -56,7 +56,7 @@ public class ARBinHeap<T extends Comparable<T>> implements MinPQ<T> {
     public T getMin() {
 		
 		
-        return null;
+        return heap[1];
     }
 
 
@@ -68,9 +68,49 @@ public class ARBinHeap<T extends Comparable<T>> implements MinPQ<T> {
      */
     @Override
     public void add(T item) {
-		
-		
-		
+        // double size of array if it is full
+        if (size == heap.length - 1) resize(2 * heap.length);
+
+        // add item, and swim it up to maintain heap invariant
+        size++;
+        heap[size] = item;
+        swim(size);
+    }
+
+    private void swim(int k) {
+        while (k > 1 && greater(k/2, k)) {
+            swap(k, k/2);
+            k = k/2;
+        }
+    }
+
+    private boolean greater(int i, int j) {
+        return ((Comparable<T>) heap[i]).compareTo(heap[j]) > 0;
+    }
+
+    private void swap(int i, int j) {
+        T temp = heap[i];
+        heap[i] = heap[j];
+        heap[j] = temp;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void resize(int length) {
+        T[] temp = (T[]) new Comparable[length];
+        for (int i = 1; i <= size; i++) {
+            temp[i] = heap[i];
+        }
+        heap = temp;
+    }
+
+    private void sink(int k) {
+        while (2*k <= size) {
+            int j = 2*k;
+            if (j < size && greater(j, j+1)) j++;
+            if (!greater(k, j)) break;
+            swap(k, j);
+            k = j;
+        }
     }
 
 
@@ -82,10 +122,16 @@ public class ARBinHeap<T extends Comparable<T>> implements MinPQ<T> {
      * @return a smallest item on this binary heap
      */
     @Override
-    public T delMin() {		
-		
-		
-        return null;
+    public T delMin() {
+        T min = heap[1];
+        swap(1, size);
+        size--;
+        sink(1);
+
+        // to avoid loitering
+        heap[size+1] = null;
+
+        return min;
     }
 
 
